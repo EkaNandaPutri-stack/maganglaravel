@@ -1877,8 +1877,7 @@
     <footer class="footer">
 
         <p>
-            © 2026 Kampus Informatika.
-            All rights reserved.
+            © 2026 EkaNandaPutri FaizDwiLestari
         </p>
 
     </footer>

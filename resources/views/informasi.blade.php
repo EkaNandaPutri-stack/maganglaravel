@@ -131,10 +131,26 @@
 
             </div>
 
+<!-- Data Alumni-->
+
+            <div class="kategori-card">
+
+                <div class="kategori-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Informasi Alumni
+                </h3>
+
+                <p>
+                    Informasi seputar alumni kampus
+                    
+                </p>
 
         </div>
 
-
+</div>
 
         <!-- =========================
              JUDUL INFORMASI TERBARU
