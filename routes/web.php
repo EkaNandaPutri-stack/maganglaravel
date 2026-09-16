@@ -13,13 +13,11 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController;
 use App\Http\Controllers\Admin\KegiatanController as AdminKegiatanController;
-use App\Http\Controllers\Admin\KalenderAkademikController as AdminKalenderAkademikController;
 use App\Http\Controllers\Admin\FakultasController as AdminFakultasController;
 use App\Http\Controllers\Admin\ProgramStudiController as AdminProgramStudiController;
 use App\Http\Controllers\Admin\PasswordController;
 
 use App\Models\ProgramStudi;
-
 
 
 /*
@@ -39,19 +37,17 @@ Route::post('/admin/login',
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | ADMIN AREA
 |--------------------------------------------------------------------------
 */
 
+
 Route::middleware('auth')
     ->prefix('admin')
     ->name('admin.')
     ->group(function(){
-
 
 
         Route::get('/dashboard',
@@ -63,8 +59,6 @@ Route::middleware('auth')
         Route::post('/logout',
             [AdminAuthController::class,'logout']
         )->name('logout');
-
-
 
 
 
@@ -93,14 +87,6 @@ Route::middleware('auth')
 
 
 
-        // KALENDER AKADEMIK
-        Route::resource(
-            'kalender-akademik',
-            AdminKalenderAkademikController::class
-        )->except(['show']);
-
-
-
         Route::resource('fakultas',
             AdminFakultasController::class
         )->except(['show']);
@@ -110,7 +96,6 @@ Route::middleware('auth')
         Route::resource('program-studi',
             AdminProgramStudiController::class
         )->except(['show']);
-
 
 
 
@@ -149,8 +134,6 @@ Route::middleware('auth')
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | PUBLIC WEBSITE
@@ -158,10 +141,25 @@ Route::middleware('auth')
 */
 
 
-
 Route::get('/',
     [InformasiController::class,'index']
 )->name('beranda');
+
+
+
+/*
+|--------------------------------------------------------------------------
+| TENTANG
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/tentang',function(){
+
+    return view('tentang');
+
+})->name('tentang');
+
+
 
 
 

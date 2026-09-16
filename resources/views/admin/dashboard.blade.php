@@ -818,11 +818,6 @@
                 Kegiatan
             </a>
 
-            <!-- KALENDER -->
-            <a href="{{ route('admin.kalender-akademik.index') }}">
-                <span class="menu-icon">📅</span>
-                Kalender Akademik
-            </a>
 
             <!-- FAKULTAS & PRODI -->
             <a href="{{ route('admin.fakultas.index') }}">
@@ -997,29 +992,6 @@ alt="Foto Profil">
                 </a>
 
 
-                <!-- KALENDER -->
-                <a class="quick-card"
-                   href="{{ route('admin.kalender-akademik.index') }}">
-
-                    <div class="quick-icon blue">
-                        📅
-                    </div>
-
-                    <h3>
-                        Kelola Kalender Akademik
-                    </h3>
-
-                    <p>
-                        Atur jadwal akademik kampus.
-                    </p>
-
-                    <div class="arrow">
-                        →
-                    </div>
-
-                </a>
-
-
                 <!-- FAKULTAS & PRODI -->
                 <a class="quick-card"
                    href="{{ route('admin.fakultas.index') }}">
@@ -1094,25 +1066,6 @@ alt="Foto Profil">
 
                     </div>
 
-
-                    <!-- KALENDER -->
-                    <div class="summary-card">
-
-                        <div class="summary-icon purple">
-                            📅
-                        </div>
-
-                        <div>
-                            <div class="summary-label">
-                                Total Event Kalender
-                            </div>
-
-                            <div class="summary-number">
-                                {{ $jumlahKalender }}
-                            </div>
-                        </div>
-
-                    </div>
 
 
                     <!-- KEGIATAN -->
