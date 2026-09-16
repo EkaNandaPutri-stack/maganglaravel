@@ -4,28 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Informasi extends Model
+class Berita extends Model
 {
-    /**
-     * Nama tabel yang terhubung dengan model ini.
-     *
-     * @var string
-     */
-    protected $table = 'informasi';
+    protected $table = 'berita';
 
     protected $fillable = [
         'judul',
         'isi',
-        'kategori',
         'gambar',
+        'tanggal',
         'penulis',
-        'tanggal_publish',
     ];
 
     protected function casts(): array
     {
         return [
-            'tanggal_publish' => 'date',
+            'tanggal' => 'date',
         ];
     }
 }

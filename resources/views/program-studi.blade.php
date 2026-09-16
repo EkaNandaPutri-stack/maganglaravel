@@ -449,31 +449,14 @@
 
     align-items: center;
 
-    gap: 15px;
+    gap: 0;
 }
 
 
 .prodi-icon {
 
-    width: 42px;
+    display: none;
 
-    height: 42px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #EAF6FA;
-
-    color: #6FB6D6;
-
-    border-radius: 14px 5px 14px 5px;
-
-    font-size: 18px;
-
-    transition: .3s ease;
 }
 
 
@@ -1027,6 +1010,57 @@
 
     <div class="fakultas-list">
 
+        @forelse ($programStudis->groupBy('fakultas_id') as $programs)
+
+            <div class="fakultas-box scroll-animate scroll-left">
+
+                <div
+                    class="fakultas-title"
+                    onclick="openFakultas(this)"
+                >
+                    <div>
+                        🎓 {{ $programs->first()->fakultas->nama_fakultas }}
+                    </div>
+
+                    <span>▼</span>
+                </div>
+
+                <div class="fakultas-content">
+
+                    @foreach ($programs as $program)
+
+                        <div
+                            class="prodi-item"
+                            onclick="detail(this.dataset.nama, this.dataset.kuota, this.dataset.kelas)"
+                            data-nama="{{ $program->nama_prodi }}"
+                            data-kuota="{{ $program->kuota_mahasiswa }} Mahasiswa"
+                            data-kelas="{{ $program->jumlah_kelas }} Kelas"
+                        >
+                            <div class="prodi-name">
+                                <b>{{ $program->nama_prodi }}</b>
+                            </div>
+
+                            <div class="prodi-arrow">→</div>
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
+        @empty
+
+            <div class="fakultas-box">
+                <div class="fakultas-title">
+                    <div>Belum Ada Program Studi</div>
+                </div>
+            </div>
+
+        @endforelse
+
+        {{--
+
 
         <!-- FPP -->
 
@@ -1486,6 +1520,8 @@
 
         </div>
 
+
+        --}}
 
     </div>
 

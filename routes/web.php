@@ -1,51 +1,221 @@
 <?php
 
-use App\Http\Controllers\InformasiController;
-use App\Models\Informasi;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\DashboardController;
 
-// =========================
-// BERANDA
-// =========================
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\KegiatanController;
 
-Route::get('/', [InformasiController::class, 'index'])
-    ->name('beranda');
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController;
+use App\Http\Controllers\Admin\KegiatanController as AdminKegiatanController;
+use App\Http\Controllers\Admin\KalenderAkademikController as AdminKalenderAkademikController;
+use App\Http\Controllers\Admin\FakultasController as AdminFakultasController;
+use App\Http\Controllers\Admin\ProgramStudiController as AdminProgramStudiController;
+use App\Http\Controllers\Admin\PasswordController;
 
-
-
-// =========================
-// TENTANG
-// =========================
-
-Route::get('/tentang', function () {
-
-    return view('tentang');
-
-});
+use App\Models\ProgramStudi;
 
 
 
-// =========================
-// INFORMASI
-// =========================
+/*
+|--------------------------------------------------------------------------
+| LOGIN ADMIN
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/informasi', function () {
-
-    $informasi = Informasi::latest()->get();
-
-    return view('informasi', compact('informasi'));
-
-});
+Route::get('/admin/login',
+    [AdminAuthController::class,'showLogin']
+)->name('admin.login');
 
 
+Route::post('/admin/login',
+    [AdminAuthController::class,'login']
+)->name('admin.login.process');
 
-// =========================
-// PROGRAM STUDI
-// =========================
 
-Route::get('/program-studi', function () {
 
-    return view('program-studi');
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN AREA
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function(){
+
+
+
+        Route::get('/dashboard',
+            [DashboardController::class,'index']
+        )->name('dashboard');
+
+
+
+        Route::post('/logout',
+            [AdminAuthController::class,'logout']
+        )->name('logout');
+
+
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA WEBSITE
+        |--------------------------------------------------------------------------
+        */
+
+
+        Route::resource('berita',
+            AdminBeritaController::class
+        )->except(['show']);
+
+
+
+        Route::resource('pengumuman',
+            AdminPengumumanController::class
+        )->except(['show']);
+
+
+
+        Route::resource('kegiatan',
+            AdminKegiatanController::class
+        )->except(['show']);
+
+
+
+        // KALENDER AKADEMIK
+        Route::resource(
+            'kalender-akademik',
+            AdminKalenderAkademikController::class
+        )->except(['show']);
+
+
+
+        Route::resource('fakultas',
+            AdminFakultasController::class
+        )->except(['show']);
+
+
+
+        Route::resource('program-studi',
+            AdminProgramStudiController::class
+        )->except(['show']);
+
+
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROFILE
+        |--------------------------------------------------------------------------
+        */
+
+
+        Route::get('/profile',function(){
+
+            return view('admin.profile');
+
+        })->name('profile');
+
+
+
+        Route::get('/password',function(){
+
+            return view('admin.password');
+
+        })->name('password');
+
+
+
+        Route::post('/password/update',
+            [PasswordController::class,'update']
+        )->name('password.update');
+
+
+    });
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC WEBSITE
+|--------------------------------------------------------------------------
+*/
+
+
+
+Route::get('/',
+    [InformasiController::class,'index']
+)->name('beranda');
+
+
+
+Route::get('/informasi',
+    [InformasiController::class,'informasi']
+)->name('informasi');
+
+
+
+
+
+Route::get('/program-studi',function(){
+
+
+    $programStudis = ProgramStudi::with('fakultas')
+        ->orderBy('fakultas_id')
+        ->orderBy('nama_prodi')
+        ->get();
+
+
+    return view(
+        'program-studi',
+        compact('programStudis')
+    );
+
 
 })->name('program.studi');
+
+
+
+
+
+Route::get('/berita',
+    [BeritaController::class,'index']
+)->name('berita');
+
+
+
+Route::get('/berita/{berita}',
+    [BeritaController::class,'show']
+)->name('berita.show');
+
+
+
+
+
+Route::get('/pengumuman',
+    [PengumumanController::class,'index']
+)->name('pengumuman');
+
+
+
+
+
+Route::get('/kegiatan',
+    [KegiatanController::class,'index']
+)->name('kegiatan');

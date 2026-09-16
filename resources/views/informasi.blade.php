@@ -855,27 +855,6 @@
     <section class="info-container">
 
 
-        <!-- INTRO -->
-
-        <div class="info-intro scroll-animate scroll-up">
-
-            <div>
-
-                <span class="info-intro-label">
-                    KABAR TERKINI
-                </span>
-
-            </div>
-
-            <div>
-
-
-            </div>
-
-        </div>
-
-
-
         <!-- FILTER -->
 
         <div class="info-filter scroll-animate scroll-up">
@@ -970,9 +949,11 @@
 
                     <div class="info-image">
 
-                       <img
-    src="{{ asset('image/informasi/foto'.($index+1).'.png') }}"
-    alt="{{ $item->judul }}"
+                        <img
+            src="{{ $item->gambar 
+    ? asset('storage/'.$item->gambar) 
+    : asset('image/informasi/foto'.(($index % 4) + 1).'.png') }}"
+alt="{{ $item->judul }}"
 >
 
                         <div class="info-number">
@@ -1011,17 +992,23 @@
                             </p>
 
 
-                            <div class="info-date">
-                                📅 Informasi Universitas PGRI Wiranegara
-                            </div>
+                           <div class="info-date">
 
+    📅 
+    {{ 
+        \Carbon\Carbon::parse(
+            $item->tanggal_publish ?? $item->created_at
+        )->format('d F Y') 
+    }}
 
-                            <a
-                                href="#"
-                                class="info-link"
-                            >
-                                Baca Selengkapnya →
-                            </a>
+    @if ($item->penulis)
+
+        · {{ $item->penulis }}
+
+    @endif
+
+</div>
+
 
                         </div>
 

@@ -944,28 +944,17 @@
  
                 <div class="about-stats"> 
  
-                    <div class="about-stat"> 
-                        <div class="about-stat-number">13</div> 
- 
-                        <div class="about-stat-label"> 
-                            Program Studi 
-                        </div> 
+                    <div> 
+
                     </div> 
  
-                    <div class="about-stat"> 
-                        <div class="about-stat-number">4</div> 
- 
-                        <div class="about-stat-label"> 
-                            Fakultas 
-                        </div> 
+                    <div> 
+            
+
                     </div> 
  
-                    <div class="about-stat"> 
-                        <div class="about-stat-number">S1–S2</div> 
- 
-                        <div class="about-stat-label"> 
-                            Jenjang Pendidikan 
-                        </div> 
+                    <div > 
+
                     </div> 
  
                 </div> 
